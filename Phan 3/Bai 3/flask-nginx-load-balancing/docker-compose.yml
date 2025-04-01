@@ -1,0 +1,32 @@
+services:
+  flask1:
+    build: .
+    environment:
+      - INSTANCE_NAME=flask1
+    ports:
+      - "5001:5000"
+    networks:
+      - my-network
+
+  flask2:
+    build: .
+    environment:
+      - INSTANCE_NAME=flask2
+    ports:
+      - "5002:5000"
+    networks:
+      - my-network
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - flask1
+      - flask2
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
