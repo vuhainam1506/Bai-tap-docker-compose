@@ -1,0 +1,17 @@
+version: '3'  # Chỉ định phiên bản Docker Compose
+services:
+  mysql:
+    image: mysql:8.0  # Sử dụng image MySQL 8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Mật khẩu cho user root
+      MYSQL_DATABASE: mydb  # Tên cơ sở dữ liệu
+      MYSQL_USER: user  # Tên user cho ứng dụng
+      MYSQL_PASSWORD: password  # Mật khẩu của user
+    ports:
+      - "3306:3306"  # Ánh xạ cổng 3306 trên host với cổng 3306 trong container
+    volumes:
+      - mysql-data:/var/lib/mysql  # Gắn named volume để lưu trữ dữ liệu
+    container_name: mysql-container
+
+volumes:
+  mysql-data:  # Khai báo named volume
