@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: bai8-express-app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    container_name: bai8-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: sapassword
+      MYSQL_DATABASE: bai8
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: sapassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
