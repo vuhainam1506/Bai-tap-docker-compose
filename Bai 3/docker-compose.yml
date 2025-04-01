@@ -1,0 +1,30 @@
+version: '3'  # Specify the Docker Compose version
+services:
+  mysql:
+    image: mysql:8.0  # Use the official MySQL 8.0 image
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Set the root password (required)
+      MYSQL_DATABASE: mydb  # Create a database named 'mydb'
+      MYSQL_USER: user  # Create a user named 'user'
+      MYSQL_PASSWORD: password  # Set the password for the user as 'password'
+    ports:
+      - "3306:3306"  # Map port 3306 on the host to port 3306 in the container
+    container_name: my-mysql-container  # Optional: Name the container
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persist MySQL data using a named volume
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest  # Use the official phpMyAdmin image
+    environment:
+      PMA_HOST: mysql  # Link phpMyAdmin to the MySQL service (use the service name 'mysql')
+      PMA_USER: user  # Use the MySQL user created above
+      PMA_PASSWORD: password  # Use the MySQL user's password
+      PMA_PORT: 3306  # MySQL port inside the container
+    ports:
+      - "8081:80"  # Map port 8081 on the host to port 80 in the phpMyAdmin container
+    container_name: my-phpmyadmin-container  # Optional: Name the container
+    depends_on:
+      - mysql  # Ensure MySQL starts before phpMyAdmin
+
+volumes:
+  mysql-data:  # Define the named volume for persisting MySQL data

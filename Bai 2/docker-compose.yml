@@ -1,0 +1,17 @@
+version: '3'  # Specify the Docker Compose version
+services:
+  mysql:
+    image: mysql:8.0  # Use the official MySQL 8.0 image from Docker Hub
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Required: Set the root password
+      MYSQL_DATABASE: mydb  # Create a database named 'mydb'
+      MYSQL_USER: user  # Create a user named 'user'
+      MYSQL_PASSWORD: password  # Set the password for the user as 'password'
+    ports:
+      - "3306:3306"  # Map port 3306 on the host to port 3306 in the container (MySQL default port)
+    container_name: my-mysql-container  # Optional: Name the container
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persist MySQL data using a named volume
+
+volumes:
+  mysql-data:  # Define the named volume for persisting MySQL data
