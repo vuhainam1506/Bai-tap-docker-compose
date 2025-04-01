@@ -1,0 +1,11 @@
+version: '3'  # Chỉ định phiên bản Docker Compose
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Ánh xạ cổng 5000 trên host với cổng 5000 trong container
+    container_name: flask-container
+    volumes:
+      - .:/usr/src/app  # Ánh xạ thư mục cục bộ vào container để hỗ trợ phát triển

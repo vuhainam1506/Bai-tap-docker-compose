@@ -16,18 +16,19 @@ app.get('/setup', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbconfig);
 
-        await connection.execute(`
-            CREATE TABLE IF NOT EXISTS users (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                email VARCHAR(255) NOT NULL
-            )
-        `);
-        await connection.execute(
-            'INSERT INTO users (name, email) VALUES (?, ?)',
-            ['Vu Hai Nam', 'vuhainam1506@gmail.com']
-            )
-        await connection.end()
+        // await connection.execute(`
+        //     CREATE TABLE IF NOT EXISTS users (
+        //         id INT AUTO_INCREMENT PRIMARY KEY,
+        //         name VARCHAR(255) NOT NULL,
+        //         email VARCHAR(255) NOT NULL,
+        //     )
+        // `);
+        // await connection.execute(
+        //     'INSERT INTO users (name, email) VALUES (?, ?)',
+        //     ['Vu Hai Nam', 'vuhainam1506@gmail.com']
+        //     )
+        // await connection.end()
+        console.log('Database setup complete!')
         res.send('Database setup complete!')
     } catch (error) {
         console.error('Error setting up database:', error)
